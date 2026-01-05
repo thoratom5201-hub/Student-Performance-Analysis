@@ -1,0 +1,22 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("data/student_scores.csv")
+
+# Calculate average marks
+df["Average"] = df[["Math","Science","English"]].mean(axis=1)
+
+# Display top students
+print(df.sort_values("Average", ascending=False))
+
+# Attendance vs Performance
+plt.scatter(df["Attendance"], df["Average"])
+plt.xlabel("Attendance")
+plt.ylabel("Average Marks")
+plt.title("Attendance vs Performance")
+plt.show()
+
+# Gender wise performance
+gender_avg = df.groupby("Gender")["Average"].mean()
+gender_avg.plot(kind="bar", title="Average Marks by Gender")
+plt.show()
